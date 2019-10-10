@@ -26,6 +26,30 @@ graph = {}
 reverse = []
 opposites = {'n':'s', 's':'n', 'e':'w', 'w':'e'}
 
+# track visited rooms
+# track exits in each room
+# go back if is a dead end
+# all this has to be done while rooms in the graph
+# commands player.currentRoom.id, player.currentRoom.getExits() and player.travel(direction) can be useful.
+# start traversal loop
+
+    # track room
+    # if room not visited
+        # add it to the graph, and add it's exits 
+        # remove last direction from it's unexplored exits
+
+    # track exits of a room
+        # loop while no exits in room, use reverse until are unexplored room:
+            # remove last direction from reverse list
+            # add it to the path
+            # move to it
+
+        # get first available exit
+        # add exit to the path
+        # add opposite to reverse
+        # move to the exit
+
+
 
 # TRAVERSAL TEST
 visited_rooms = set()
