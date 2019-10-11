@@ -21,7 +21,43 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+traversalPath = [] 
+graph = {}
+reverse = []
+opposites = {'n':'s', 's':'n', 'e':'w', 'w':'e'} 
+# Need to research if I can use something like combinations to do this in a more efficient way
+
+# starting room
+graph[player.currentRoom.id] = player.currentRoom.getExits()
+# print(graph)
+# while there is rooms to visit
+while len(graph) < len(roomGraph)-1:
+    # if room not visited 
+    if player.currentRoom.id not in graph: 
+        # add room and it's exits   
+        graph[player.currentRoom.id] = player.currentRoom.getExits()
+        # and remove it from the unexplored exits list
+        last_direction = reverse[-1]   
+        graph[player.currentRoom.id].remove(last_direction)                        
+
+# track unexplored exits
+    # When get to a dead end
+    while len(graph[player.currentRoom.id]) == 0:  
+        # use reverse to go back to the last direction with unexplored exits
+        go_back = reverse.pop()  
+        # add it to the traversal path and move to it
+        traversalPath.append(go_back)                
+        player.travel(go_back)  
+
+    # get first available exit
+    go_forward = graph[player.currentRoom.id].pop(0)
+    # add it to traversal path  
+    traversalPath.append(go_forward)  
+    # and add the oposite direction to reverse   
+    reverse.append(opposites[go_forward])   
+    # move to it    
+    player.travel(go_forward)
+
 
 
 # TRAVERSAL TEST
